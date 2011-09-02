@@ -81,6 +81,11 @@ module Jpmobile::Mobile
       Jpmobile::Util.shift_jis?(str)
     end
 
+    #  モデル名を返す。
+    def model_name
+      @env["HTTP_USER_AGENT"].split("/")[2]
+    end
+
     private
     def to_mail_encoding(str)
       str = Jpmobile::Emoticon.utf8_to_unicodecr(str)
