@@ -19,6 +19,7 @@ describe Jpmobile::Rack::MobileCarrier, "softbank" do
       env['rack.jpmobile'].ident_subscriber.should be_nil
       env['rack.jpmobile'].supports_cookie?.should be_true
       env['rack.jpmobile'].smart_phone?.should     be_false
+      env['rack.jpmobile'].model_name.should       == "910T"
     end
 
     it "X_JPHONE_UID 付きの 910T を判別できること" do
@@ -46,6 +47,7 @@ describe Jpmobile::Rack::MobileCarrier, "softbank" do
       env['rack.jpmobile'].position.should be_nil
       env['rack.jpmobile'].ident.should be_nil
       env['rack.jpmobile'].supports_cookie?.should be_true
+      env['rack.jpmobile'].model_name.should       == "V903T"
     end
   end
 
@@ -70,7 +72,7 @@ describe Jpmobile::Rack::MobileCarrier, "softbank" do
       res = Rack::MockRequest.env_for(
         'http://jpmobile-rails.org/',
         'HTTP_USER_AGENT' => "Vodafone/1.0/V903T/TJ001 Browser/VF-Browser/1.0 Profile/MIDP-2.0 Configuration/CLDC-1.1 Ext-J-Profile/JSCL-1.2.2 Ext-V-Profile/VSCL-2.0.0",
-        "REMOTE_ADDR"=>"210.175.1.130")
+        "REMOTE_ADDR"=>"123.108.237.1")
       env = Jpmobile::Rack::MobileCarrier.new(UnitApplication.new).call(res)[1]
 
       env['rack.jpmobile'].valid_ip?.should be_true
